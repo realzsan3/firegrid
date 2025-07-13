@@ -1,0 +1,734 @@
+{
+  "records": [
+    {
+      "year": 2025,
+      "assets": 20000,
+      "progress": 0.016,
+      "return": 0.0443,
+      "phase": "积累",
+      "cash_flow": 20000.0,
+      "warning": false
+    },
+    {
+      "year": 2026,
+      "assets": 40042,
+      "progress": 0.032,
+      "return": 0.0021,
+      "phase": "积累",
+      "cash_flow": 20000.0,
+      "warning": false
+    },
+    {
+      "year": 2027,
+      "assets": 50214,
+      "progress": 0.0402,
+      "return": -0.2454,
+      "phase": "积累",
+      "cash_flow": 20000.0,
+      "warning": false
+    },
+    {
+      "year": 2028,
+      "assets": 78385,
+      "progress": 0.0627,
+      "return": 0.1627,
+      "phase": "积累",
+      "cash_flow": 20000.0,
+      "warning": false
+    },
+    {
+      "year": 2029,
+      "assets": 95039,
+      "progress": 0.076,
+      "return": -0.0427,
+      "phase": "积累",
+      "cash_flow": 20000.0,
+      "warning": false
+    },
+    {
+      "year": 2030,
+      "assets": 125116,
+      "progress": 0.1001,
+      "return": 0.106,
+      "phase": "积累",
+      "cash_flow": 20000.0,
+      "warning": false
+    },
+    {
+      "year": 2031,
+      "assets": 167028,
+      "progress": 0.1336,
+      "return": 0.1751,
+      "phase": "积累",
+      "cash_flow": 20000.0,
+      "warning": false
+    },
+    {
+      "year": 2032,
+      "assets": 211287,
+      "progress": 0.169,
+      "return": 0.1452,
+      "phase": "积累",
+      "cash_flow": 20000.0,
+      "warning": false
+    },
+    {
+      "year": 2033,
+      "assets": 213035,
+      "progress": 0.1704,
+      "return": -0.0864,
+      "phase": "积累",
+      "cash_flow": 20000.0,
+      "warning": false
+    },
+    {
+      "year": 2034,
+      "assets": 255308,
+      "progress": 0.2042,
+      "return": 0.1045,
+      "phase": "积累",
+      "cash_flow": 20000.0,
+      "warning": false
+    },
+    {
+      "year": 2035,
+      "assets": 283574,
+      "progress": 0.2269,
+      "return": 0.0324,
+      "phase": "积累",
+      "cash_flow": 20000.0,
+      "warning": false
+    },
+    {
+      "year": 2036,
+      "assets": 312012,
+      "progress": 0.2496,
+      "return": 0.0298,
+      "phase": "积累",
+      "cash_flow": 20000.0,
+      "warning": false
+    },
+    {
+      "year": 2037,
+      "assets": 349340,
+      "progress": 0.2795,
+      "return": 0.0555,
+      "phase": "积累",
+      "cash_flow": 20000.0,
+      "warning": false
+    },
+    {
+      "year": 2038,
+      "assets": 441986,
+      "progress": 0.3536,
+      "return": 0.208,
+      "phase": "积累",
+      "cash_flow": 20000.0,
+      "warning": false
+    },
+    {
+      "year": 2039,
+      "assets": 458916,
+      "progress": 0.3671,
+      "return": -0.0069,
+      "phase": "积累",
+      "cash_flow": 20000.0,
+      "warning": false
+    },
+    {
+      "year": 2040,
+      "assets": 489126,
+      "progress": 0.3913,
+      "return": 0.0222,
+      "phase": "积累",
+      "cash_flow": 20000.0,
+      "warning": false
+    },
+    {
+      "year": 2041,
+      "assets": 669838,
+      "progress": 0.5359,
+      "return": 0.3286,
+      "phase": "积累",
+      "cash_flow": 20000.0,
+      "warning": false
+    },
+    {
+      "year": 2042,
+      "assets": 835502,
+      "progress": 0.6684,
+      "return": 0.2175,
+      "phase": "积累",
+      "cash_flow": 20000.0,
+      "warning": false
+    },
+    {
+      "year": 2043,
+      "assets": 1168921,
+      "progress": 0.9351,
+      "return": 0.3751,
+      "phase": "积累",
+      "cash_flow": 20000.0,
+      "warning": false
+    },
+    {
+      "year": 2044,
+      "assets": 1043911,
+      "progress": 0.8351,
+      "return": -0.1241,
+      "phase": "积累",
+      "cash_flow": 20000.0,
+      "warning": false
+    },
+    {
+      "year": 2045,
+      "assets": 1260657,
+      "progress": 1.0,
+      "return": 0.1885,
+      "phase": "退休",
+      "cash_flow": 0,
+      "warning": false
+    },
+    {
+      "year": 2046,
+      "assets": 1302078,
+      "progress": 1.0,
+      "return": 0.2043,
+      "phase": "退休",
+      "cash_flow": -216109.76,
+      "warning": false
+    },
+    {
+      "year": 2047,
+      "assets": 1253855,
+      "progress": 1.0,
+      "return": -0.1452,
+      "phase": "退休",
+      "cash_flow": 140810.69,
+      "warning": false
+    },
+    {
+      "year": 2048,
+      "assets": 1279585,
+      "progress": 1.0,
+      "return": 0.1426,
+      "phase": "退休",
+      "cash_flow": -153073.02,
+      "warning": false
+    },
+    {
+      "year": 2049,
+      "assets": 1283245,
+      "progress": 1.0,
+      "return": 0.0543,
+      "phase": "退休",
+      "cash_flow": -65824.03,
+      "warning": false
+    },
+    {
+      "year": 2050,
+      "assets": 1321603,
+      "progress": 1.0,
+      "return": 0.1895,
+      "phase": "退休",
+      "cash_flow": -204764.56,
+      "warning": false
+    },
+    {
+      "year": 2051,
+      "assets": 1247183,
+      "progress": 0.9977,
+      "return": -0.2416,
+      "phase": "退休",
+      "cash_flow": 244818.19,
+      "warning": false
+    },
+    {
+      "year": 2052,
+      "assets": 1255420,
+      "progress": 1.0,
+      "return": 0.073,
+      "phase": "退休",
+      "cash_flow": -82835.69,
+      "warning": false
+    },
+    {
+      "year": 2053,
+      "assets": 1249073,
+      "progress": 0.9993,
+      "return": 0.0147,
+      "phase": "退休",
+      "cash_flow": -24829.45,
+      "warning": false
+    },
+    {
+      "year": 2054,
+      "assets": 1163730,
+      "progress": 0.931,
+      "return": -0.3016,
+      "phase": "退休",
+      "cash_flow": 291409.01,
+      "warning": false
+    },
+    {
+      "year": 2055,
+      "assets": 1188206,
+      "progress": 0.9506,
+      "return": 0.1452,
+      "phase": "退休",
+      "cash_flow": -144454.22,
+      "warning": false
+    },
+    {
+      "year": 2056,
+      "assets": 1204101,
+      "progress": 0.9633,
+      "return": 0.1069,
+      "phase": "退休",
+      "cash_flow": -111106.66,
+      "warning": false
+    },
+    {
+      "year": 2057,
+      "assets": 1295029,
+      "progress": 1.0,
+      "return": 0.4176,
+      "phase": "退休",
+      "cash_flow": -411874.66,
+      "warning": false
+    },
+    {
+      "year": 2058,
+      "assets": 1343443,
+      "progress": 1.0,
+      "return": 0.2269,
+      "phase": "退休",
+      "cash_flow": -245460.65,
+      "warning": false
+    },
+    {
+      "year": 2059,
+      "assets": 1347449,
+      "progress": 1.0,
+      "return": 0.0549,
+      "phase": "退休",
+      "cash_flow": -69761.69,
+      "warning": false
+    },
+    {
+      "year": 2060,
+      "assets": 1351519,
+      "progress": 1.0,
+      "return": 0.0551,
+      "phase": "退休",
+      "cash_flow": -70177.75,
+      "warning": false
+    },
+    {
+      "year": 2061,
+      "assets": 1322920,
+      "progress": 1.0,
+      "return": -0.0658,
+      "phase": "退休",
+      "cash_flow": 60335.56,
+      "warning": false
+    },
+    {
+      "year": 2062,
+      "assets": 1301299,
+      "progress": 1.0,
+      "return": -0.0417,
+      "phase": "退休",
+      "cash_flow": 33566.9,
+      "warning": false
+    },
+    {
+      "year": 2063,
+      "assets": 1272848,
+      "progress": 1.0,
+      "return": -0.0693,
+      "phase": "退休",
+      "cash_flow": 61752.68,
+      "warning": false
+    },
+    {
+      "year": 2064,
+      "assets": 1240011,
+      "progress": 0.992,
+      "return": -0.089,
+      "phase": "退休",
+      "cash_flow": 80436.75,
+      "warning": false
+    },
+    {
+      "year": 2065,
+      "assets": 1218708,
+      "progress": 0.975,
+      "return": -0.0459,
+      "phase": "退休",
+      "cash_flow": 35608.63,
+      "warning": false
+    },
+    {
+      "year": 2066,
+      "assets": 1188392,
+      "progress": 0.9507,
+      "return": -0.0844,
+      "phase": "退休",
+      "cash_flow": 72517.74,
+      "warning": false
+    },
+    {
+      "year": 2067,
+      "assets": 1126434,
+      "progress": 0.9011,
+      "return": -0.2207,
+      "phase": "退休",
+      "cash_flow": 200293.51,
+      "warning": false
+    },
+    {
+      "year": 2068,
+      "assets": 1131603,
+      "progress": 0.9053,
+      "return": 0.0629,
+      "phase": "退休",
+      "cash_flow": -65730.9,
+      "warning": false
+    },
+    {
+      "year": 2069,
+      "assets": 1138045,
+      "progress": 0.9104,
+      "return": 0.0685,
+      "phase": "退休",
+      "cash_flow": -71033.24,
+      "warning": false
+    },
+    {
+      "year": 2070,
+      "assets": 1154167,
+      "progress": 0.9233,
+      "return": 0.1108,
+      "phase": "退休",
+      "cash_flow": -110010.26,
+      "warning": false
+    },
+    {
+      "year": 2071,
+      "assets": 1269652,
+      "progress": 1.0,
+      "return": 0.5403,
+      "phase": "退休",
+      "cash_flow": -508106.39,
+      "warning": false
+    },
+    {
+      "year": 2072,
+      "assets": 1290014,
+      "progress": 1.0,
+      "return": 0.1202,
+      "phase": "退休",
+      "cash_flow": -132233.26,
+      "warning": false
+    },
+    {
+      "year": 2073,
+      "assets": 1294378,
+      "progress": 1.0,
+      "return": 0.0569,
+      "phase": "退休",
+      "cash_flow": -69057.64,
+      "warning": false
+    },
+    {
+      "year": 2074,
+      "assets": 1276804,
+      "progress": 1.0,
+      "return": -0.0279,
+      "phase": "退休",
+      "cash_flow": 18523.32,
+      "warning": false
+    },
+    {
+      "year": 2075,
+      "assets": 1261414,
+      "progress": 1.0,
+      "return": -0.0203,
+      "phase": "退休",
+      "cash_flow": 10487.09,
+      "warning": false
+    },
+    {
+      "year": 2076,
+      "assets": 1213978,
+      "progress": 0.9712,
+      "return": -0.148,
+      "phase": "退休",
+      "cash_flow": 139287.7,
+      "warning": false
+    },
+    {
+      "year": 2077,
+      "assets": 1211936,
+      "progress": 0.9695,
+      "return": 0.0316,
+      "phase": "退休",
+      "cash_flow": -40392.97,
+      "warning": false
+    },
+    {
+      "year": 2078,
+      "assets": 1215506,
+      "progress": 0.9724,
+      "return": 0.0547,
+      "phase": "退休",
+      "cash_flow": -62756.87,
+      "warning": false
+    },
+    {
+      "year": 2079,
+      "assets": 1197952,
+      "progress": 0.9584,
+      "return": -0.0322,
+      "phase": "退休",
+      "cash_flow": 21597.14,
+      "warning": false
+    },
+    {
+      "year": 2080,
+      "assets": 1207463,
+      "progress": 0.966,
+      "return": 0.0797,
+      "phase": "退休",
+      "cash_flow": -85964.53,
+      "warning": false
+    },
+    {
+      "year": 2081,
+      "assets": 1164580,
+      "progress": 0.9317,
+      "return": -0.1376,
+      "phase": "退休",
+      "cash_flow": 123235.4,
+      "warning": false
+    },
+    {
+      "year": 2082,
+      "assets": 1119497,
+      "progress": 0.8956,
+      "return": -0.1536,
+      "phase": "退休",
+      "cash_flow": 133747.3,
+      "warning": false
+    },
+    {
+      "year": 2083,
+      "assets": 1142619,
+      "progress": 0.9141,
+      "return": 0.1433,
+      "phase": "退休",
+      "cash_flow": -137268.21,
+      "warning": false
+    },
+    {
+      "year": 2084,
+      "assets": 1091520,
+      "progress": 0.8732,
+      "return": -0.1836,
+      "phase": "退休",
+      "cash_flow": 158692.66,
+      "warning": false
+    },
+    {
+      "year": 2085,
+      "assets": 1046213,
+      "progress": 0.837,
+      "return": -0.1675,
+      "phase": "退休",
+      "cash_flow": 137565.28,
+      "warning": false
+    },
+    {
+      "year": 2086,
+      "assets": 1084101,
+      "progress": 0.8673,
+      "return": 0.2211,
+      "phase": "退休",
+      "cash_flow": -193398.36,
+      "warning": false
+    },
+    {
+      "year": 2087,
+      "assets": 1107760,
+      "progress": 0.8862,
+      "return": 0.1491,
+      "phase": "退休",
+      "cash_flow": -137998.91,
+      "warning": false
+    },
+    {
+      "year": 2088,
+      "assets": 1129958,
+      "progress": 0.904,
+      "return": 0.1402,
+      "phase": "退休",
+      "cash_flow": -133104.5,
+      "warning": false
+    },
+    {
+      "year": 2089,
+      "assets": 1130975,
+      "progress": 0.9048,
+      "return": 0.0445,
+      "phase": "退休",
+      "cash_flow": -49266.7,
+      "warning": false
+    },
+    {
+      "year": 2090,
+      "assets": 1149277,
+      "progress": 0.9194,
+      "return": 0.1209,
+      "phase": "退休",
+      "cash_flow": -118445.24,
+      "warning": false
+    },
+    {
+      "year": 2091,
+      "assets": 1220027,
+      "progress": 0.976,
+      "return": 0.3478,
+      "phase": "退休",
+      "cash_flow": -328970.81,
+      "warning": false
+    },
+    {
+      "year": 2092,
+      "assets": 1224553,
+      "progress": 0.9796,
+      "return": 0.0585,
+      "phase": "退休",
+      "cash_flow": -66904.93,
+      "warning": false
+    },
+    {
+      "year": 2093,
+      "assets": 1214393,
+      "progress": 0.9715,
+      "return": -0.0015,
+      "phase": "退休",
+      "cash_flow": -8344.13,
+      "warning": false
+    },
+    {
+      "year": 2094,
+      "assets": 1218474,
+      "progress": 0.9748,
+      "return": 0.0568,
+      "phase": "退休",
+      "cash_flow": -64900.35,
+      "warning": false
+    },
+    {
+      "year": 2095,
+      "assets": 1247153,
+      "progress": 0.9977,
+      "return": 0.1577,
+      "phase": "退休",
+      "cash_flow": -163454.79,
+      "warning": false
+    },
+    {
+      "year": 2096,
+      "assets": 1242315,
+      "progress": 0.9939,
+      "return": 0.0206,
+      "phase": "退休",
+      "cash_flow": -30532.33,
+      "warning": false
+    },
+    {
+      "year": 2097,
+      "assets": 1314107,
+      "progress": 1.0,
+      "return": 0.3289,
+      "phase": "退休",
+      "cash_flow": -336862.04,
+      "warning": false
+    },
+    {
+      "year": 2098,
+      "assets": 1303809,
+      "progress": 1.0,
+      "return": 0.0008,
+      "phase": "退休",
+      "cash_flow": -11369.78,
+      "warning": false
+    },
+    {
+      "year": 2099,
+      "assets": 1321840,
+      "progress": 1.0,
+      "return": 0.1091,
+      "phase": "退休",
+      "cash_flow": -124277.64,
+      "warning": false
+    },
+    {
+      "year": 2100,
+      "assets": 1448347,
+      "progress": 1.0,
+      "return": 0.5185,
+      "phase": "退休",
+      "cash_flow": -558901.19,
+      "warning": false
+    },
+    {
+      "year": 2101,
+      "assets": 1436623,
+      "progress": 1.0,
+      "return": -0.0005,
+      "phase": "退休",
+      "cash_flow": -11039.19,
+      "warning": false
+    },
+    {
+      "year": 2102,
+      "assets": 1435167,
+      "progress": 1.0,
+      "return": 0.0349,
+      "phase": "退休",
+      "cash_flow": -51640.85,
+      "warning": false
+    },
+    {
+      "year": 2103,
+      "assets": 1470137,
+      "progress": 1.0,
+      "return": 0.1618,
+      "phase": "退休",
+      "cash_flow": -197286.58,
+      "warning": false
+    },
+    {
+      "year": 2104,
+      "assets": 1469129,
+      "progress": 1.0,
+      "return": 0.0366,
+      "phase": "退休",
+      "cash_flow": -54774.94,
+      "warning": false
+    }
+  ],
+  "summary": {
+    "start_year": 2025,
+    "retire_year": 2045,
+    "accumulation_years": 21,
+    "final_assets": 1469129,
+    "total_years": 80,
+    "safe": true,
+    "retired": true,
+    "warning_years": []
+  }
+}
