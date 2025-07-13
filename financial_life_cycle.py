@@ -40,6 +40,12 @@ def simulate(args):
     accumulation_years = 0
     safe = True
 
+    # 新增累计变量
+    total_saved = 0
+    total_withdrawn = 0
+
+    target_description = f"目标：年支出 ¥{args.expense:,.0f} / 提款率 {args.rate:.2%} = 自由所需资产 ¥{target:,.0f}"
+
     print(f"\n目标：年支出 ¥{args.expense:,.0f} / 提款率 {args.rate:.2%} = 自由所需资产 ¥{target:,.0f}")
     print("\n📊 模拟开始：")
     print(f"{'年':<6} {'收益率':>7} {'阶段':^4} {'年初资产':>15} {'现金流':>12} {'年末资产':>15} {'进度':>6}")
@@ -52,6 +58,7 @@ def simulate(args):
             flow = args.saving
             assets = start * (1 + R) + flow
             accumulation_years += 1
+            total_saved += flow 
             if assets >= target:
                 phase, flow = "退休", 0
                 retire_year = start_year + yr - 1
@@ -59,6 +66,7 @@ def simulate(args):
             withdraw = start * args.rate + args.k * start * (R - args.rate)
             flow = -withdraw + args.post_income
             assets = start * (1 + R) + flow
+            total_withdrawn += withdraw 
 
         progress = min(assets / target, 1.0)
 
@@ -69,6 +77,8 @@ def simulate(args):
             warning = True                   
             warning_years.append(start_year + yr - 1)
 
+        net_gain = assets - total_saved + total_withdrawn  # 净收益计算
+
         records.append({
             "year": start_year + yr - 1,
             "assets": round(assets),
@@ -76,7 +86,8 @@ def simulate(args):
             "return": round(R, 4),
             "phase": phase,
             "cash_flow": round(flow, 2),
-            "warning": warning 
+            "warning": warning,
+            
         })
 
         print(f"{start_year + yr - 1:<6} {R*100:>7.2f}% {phase:^4} {start:>15,.0f} {flow:>12,.0f} {assets:>15,.0f} {progress*100:>6.1f}%")
@@ -97,7 +108,12 @@ def simulate(args):
         "total_years": args.years,
         "safe": bool(safe),
         "retired": retired_flag,
-        "warning_years": warning_years
+        "warning_years": warning_years,
+        "total_saved": round(total_saved, 2),
+        "total_withdrawn": round(total_withdrawn, 2),
+        "net_gain": round(net_gain, 2),
+        "target_description": target_description,
+        
     }
 
     export_data = {

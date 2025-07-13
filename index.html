@@ -159,7 +159,7 @@
 
     <!-- █ 页脚 -->
     <footer>
-        <a href="https://github.com/realzsan/firegrid" target="_blank">GitHub</a><br>
+        <a href="https://github.com/realzsan3/firegrid" target="_blank">GitHub</a><br>
         © 2025&nbsp;FIREGRID
     </footer>
 
@@ -190,9 +190,15 @@
                 ? `⚠️  资产警告年份：${dangerYears.join(', ')}`
                 : '';
 
+            const savedStr = `💵 储蓄总额：¥${(summary.total_saved ?? 0).toLocaleString()}`;
+            const drawnStr = `📤 提款总额：¥${(summary.total_withdrawn ?? 0).toLocaleString()}`;
+            const gainStr = `📈 净收益：¥${(summary.net_gain ?? 0).toLocaleString()}`;
+
             document.getElementById('summary').innerHTML =
+                `<div style="color: #39ff14; font-weight: bold; margin-bottom: 10px;">${summary.target_description}</div>` +
                 `🧮 从 <b>${summary.start_year}</b> 年开始，经历 <b>${summary.accumulation_years}</b> 年积累，${retireInfo}。\n` +
                 `模拟共 <b>${records.length}</b> 年，最终剩余资产 <b>¥${summary.final_assets.toLocaleString()}</b>。\n` +
+                `${savedStr} · ${drawnStr} · ${gainStr}\n` +
                 `当前状态：<b>${safeTag}</b>` +
                 (warningLine ? `\n${warningLine}` : '');
 
@@ -223,7 +229,7 @@
                 }
 
                 // ========= 资产⚠️警告 =========
-                if (d.warning) {                      
+                if (d.warning) {
                     box.textContent = '⚠️';
                     box.style.fontSize = '18px';
                     box.style.textAlign = 'center';

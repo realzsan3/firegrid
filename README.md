@@ -20,7 +20,8 @@ FIREGRID 是一款以【财务自由 & 提前退休】为核心理念的 **视�
 
 ## 🌐 在线体验 Live Demo
 
-🔗 https://firegrid.111533.xyz/ 
+🔗 https://firegrid.111533.xyz/
+ 
 （建议你部署 GitHub Pages 或 cloudflare-page 体验地址）
 
 ---
@@ -28,7 +29,7 @@ FIREGRID 是一款以【财务自由 & 提前退休】为核心理念的 **视�
 ## 🚀 快速开始使用（本地运行）
 
 ```bash
-git clone https://github.com/realzsan/firegrid.git
+git clone https://github.com/realzsan3/firegrid
 cd firegrid
 python financial_life_cycle.py  # 生成 progress.json 数据
 python -m http.server          # 本地访问 http://localhost:8000
