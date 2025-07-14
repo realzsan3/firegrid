@@ -3,97 +3,91 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- █ 站点信息 -->
     <title>FIREGRID - 退休提款 Cyber 进度格</title>
-    <meta name="description" content="FIREGRID 是一款赛博朋克风格的退休提款可视化工具。一格一年，动态展示资产与提款进度，助你规划财务自由。">
-    <meta name="keywords" content="FIREGRID, 财务自由, 提前退休, 退休提款, FIRE, 可视化, Cyberpunk">
-    <meta name="author" content="FIREGRID Team">
-
-    <!-- █ Open Graph / Twitter Card（示例，按需替换 URL） -->
-    <meta property="og:title" content="FIREGRID - Cyberpunk Retirement Withdrawal Grid" />
-    <meta property="og:description" content="用赛博格子图可视化你的退休提款与财务自由进度。" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://firegrid.111533.xyz/" />
-    <meta property="og:image" content="https://firegrid.111533.xyz/assets/og-image.jpg" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="FIREGRID - 退休提款可视化" />
-    <meta name="twitter:description" content="FIREGRID：一格一年，点亮你的财务自由之路。" />
-    <meta name="twitter:image" content="https://firegrid.111533.xyz/assets/og-image.jpg" />
-
-    <!-- █ 站点图标 -->
-    <meta name="theme-color" content="#0d0f1a" />
-    <link rel="icon" type="image/png" href="/assets/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
-    <link rel="shortcut icon" href="/assets/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="FIREGRID" />
-
-    <!-- █ 赛博朋克样式 -->
     <style>
         :root {
             --bg: #0d0f1a;
             --fg: #39ff14;
-            --cols: 10;
         }
 
-        html,
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
+
         body {
             margin: 0;
-            min-height: 100%;
             background: var(--bg);
             color: var(--fg);
+            font-family: Consolas, Menlo, monospace;
             display: flex;
             flex-direction: column;
             align-items: center;
-            font-family: Consolas, Menlo, monospace;
+            min-height: 100vh;
+            font-size: 16px;
         }
 
         header {
-            margin-top: 2rem;
-            text-align: center
-        }
-
-        header img {
-            height: 80px;
-            margin-bottom: .5rem
+            text-align: center;
+            margin: 2rem 0 1rem;
         }
 
         h1 {
-            margin: .3rem 0 1rem;
+            margin: 0.3rem 0 1rem;
             font-size: 1.8rem;
             letter-spacing: 2px;
             text-shadow: 0 0 8px var(--fg);
         }
 
         .summary {
-            font-size: .9rem;
-            color: #9ff;
-            margin-bottom: 1.8rem;
+            max-width: 600px;
+            width: 90vw;
+            padding: 0 1rem;
+            font-size: 0.9rem;
             line-height: 1.6;
             text-align: center;
-            white-space: pre-line;
+            word-break: break-word;
+            white-space: normal;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(var(--cols), 32px);
-            gap: 10px;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(10, 32px);
+            gap: 8px;
+            margin: 2rem 0;
+            width: fit-content;
+        }
+
+        @media (max-width: 700px) {
+            .grid {
+                grid-template-columns: repeat(auto-fill, minmax(calc((100vw - 32px) / 10), 1fr));
+                width: 90vw;
+                margin: 1.5rem auto;
+            }
+
+            .cell {
+                width: 100%;
+                aspect-ratio: 1 / 1;
+            }
         }
 
         .cell {
             width: 32px;
             height: 32px;
             border-radius: 4px;
-            border: 1px solid rgba(64, 238, 255, .15);
-            box-shadow: 0 0 6px rgba(0, 255, 255, .12);
+            border: 1px solid rgba(64, 238, 255, 0.15);
+            box-shadow: 0 0 6px rgba(0, 255, 255, 0.12);
             opacity: 0;
-            transform: scale(.6);
-            animation: pop .5s forwards;
+            transform: scale(0.6);
+            animation: pop 0.4s forwards;
             cursor: pointer;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            font-size: 18px;
         }
 
         @keyframes pop {
@@ -103,67 +97,38 @@
             }
         }
 
-        /* Tooltip */
-        .cell:hover {
-            z-index: 999;
-        }
-
-        .cell:hover::after {
-            content: attr(data-tip);
-            position: absolute;
-            left: 36px;
-            top: -4px;
-            z-index: 1000;
-            background: #141622;
-            color: #0ff;
-            font-size: 12px;
-            padding: 8px 10px;
-            border: 1px solid #4ff;
-            border-radius: 6px;
-            box-shadow: 0 0 10px #0ff;
-            white-space: pre;
-            min-width: 210px;
-        }
-
         footer {
-            text-align: center;
-            padding: 1.5rem 1rem 2.5rem;
-            font-size: .9rem;
+            padding: 1rem;
+            font-size: 0.9rem;
             color: #7aa;
+            text-align: center;
         }
 
         footer a {
             color: #8f5bff;
-            text-decoration: none
+            text-decoration: none;
         }
 
         footer a:hover {
-            text-decoration: underline
+            text-decoration: underline;
         }
     </style>
 </head>
 
 <body>
-    <!-- █ LOGO + 标题 -->
     <header>
-        <img src="assets/favicon-96x96.png" alt="FIREGRID logo">
         <h1>FIREGRID</h1>
-        <p style="margin:0 0 1.2rem;font-size:.85rem;opacity:.8">Cyberpunk Retirement Withdrawal Grid</p>
+        <p style="opacity:0.8; font-size:0.85rem;">Cyberpunk Retirement Withdrawal Grid</p>
     </header>
-
-    <!-- █ 生命周期摘要区 -->
-    <div id="summary" class="summary">Loading summary…</div>
-
-    <!-- █ Grid 容器 -->
+    <div id="summary" class="summary">Loading…</div>
     <div id="grid" class="grid"></div>
-
-    <!-- █ 页脚 -->
     <footer>
-        <a href="https://github.com/realzsan3/firegrid" target="_blank">GitHub</a><br>
-        © 2025&nbsp;FIREGRID
+        <a href="https://github.com/realzsan3/firegrid" target="_blank">GitHub</a><br>© 2025 FIREGRID
     </footer>
-
-    <!-- █ 主脚本 -->
+    <div id="global-tooltip" style="display:none; position:absolute; z-index:9999;
+background:#141622; color:#0ff; font-size:12px; padding:6px 8px;
+border:1px solid #4ff; border-radius:6px; box-shadow:0 0 8px #0ff;
+white-space:pre; pointer-events:none; min-width:180px; max-width:320px;"></div>
     <script>
         (async () => {
             const res = await fetch('progress.json');
@@ -171,75 +136,133 @@
                 document.getElementById('summary').textContent = '无法加载 progress.json';
                 return;
             }
-
             const { summary, records } = await res.json();
 
-
-            /* ===== 渲染生命周期摘要 ===== */
-            const retired = summary.retired;           // 布尔
-            const safe = summary.safe;
+            const retired = summary.retired, safe = summary.safe;
             const safeTag = safe
                 ? (retired ? '✅ 退休资金安全' : '✅ 资产已达标')
                 : (retired ? '⚠️ 退休资金不足' : '⚠️ 资产尚未达标');
-
             const retireInfo = retired
                 ? `于 <b>${summary.retire_year}</b> 年退休`
-                : '仍在积累阶段（未达退休目标）';
-            const dangerYears = summary.warning_years || [];
-            const warningLine = dangerYears.length
-                ? `⚠️  资产警告年份：${dangerYears.join(', ')}`
+                : '仍在积累阶段';
+            const warningLine = (summary.warning_years?.length)
+                ? `⚠️ 警告年份：${summary.warning_years.join(', ')}`
                 : '';
 
-            const savedStr = `💵 储蓄总额：¥${(summary.total_saved ?? 0).toLocaleString()}`;
-            const drawnStr = `📤 提款总额：¥${(summary.total_withdrawn ?? 0).toLocaleString()}`;
-            const gainStr = `📈 净收益：¥${(summary.net_gain ?? 0).toLocaleString()}`;
+            let targetStr = '🎯 目标资产数据不可用';
+            try {
+                if (typeof summary.target_description === 'object' && summary.target_description !== null) {
+                    const td = summary.target_description;
+                    targetStr = `🎯 目标资产 = 年支出 ${td.annual_spending.toLocaleString()} × 提款率 ${(td.withdraw_rate * 100).toFixed(2)}% = ${td.target_assets.toLocaleString()}`;
+                } else if (typeof summary.target_description === 'string') {
+                    targetStr = summary.target_description;
+                }
+            } catch {
+                targetStr = summary.target_description;
+            }
 
-            document.getElementById('summary').innerHTML =
-                `<div style="color: #39ff14; font-weight: bold; margin-bottom: 10px;">${summary.target_description}</div>` +
-                `🧮 从 <b>${summary.start_year}</b> 年开始，经历 <b>${summary.accumulation_years}</b> 年积累，${retireInfo}。\n` +
-                `模拟共 <b>${records.length}</b> 年，最终剩余资产 <b>¥${summary.final_assets.toLocaleString()}</b>。\n` +
-                `${savedStr} · ${drawnStr} · ${gainStr}\n` +
-                `当前状态：<b>${safeTag}</b>` +
-                (warningLine ? `\n${warningLine}` : '');
+            document.getElementById('summary').innerHTML = `
+    <div style="color:#39ff14;font-weight:bold;margin-bottom:10px;">${targetStr}</div>
+    🧮 从 <b>${summary.start_year}</b> 年起，累计 <b>${summary.accumulation_years}</b> 年，${retireInfo}<br>
+    📆 模拟 <b>${records.length}</b> 年，最终剩余资产 <b>${summary.final_assets.toLocaleString()}</b><br><br>
 
+    💵 储蓄 ${(summary.total_saved || 0).toLocaleString()} &nbsp;&nbsp;
+    📤 提取 ${(summary.total_withdrawn || 0).toLocaleString()} &nbsp;&nbsp;
+    📈 净收益 ${(summary.net_gain || 0).toLocaleString()}<br><br>
 
-            /* ===== 渲染格子 ===== */
+    📊 当前状态：<b>${safeTag}</b>
+    ${warningLine ? `<br>${warningLine}` : ''}
+  `;
+
             const grid = document.getElementById('grid');
-            const COLS = 10;
-            document.documentElement.style.setProperty('--cols', COLS);
+            const tooltip = document.getElementById('global-tooltip');
+            const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
-            const total = records.length;
             records.forEach((d, idx) => {
-                const hue = 300 * idx / total;
+                const box = document.createElement('div');
+                box.className = 'cell';
+                const hue = 300 * idx / records.length;
                 const progress = d.progress ?? 0;
                 const light = 25 + 30 * progress;
                 const color = `hsl(${hue} 100% ${light}%)`;
-
-                const box = document.createElement('div');
-                box.className = 'cell';
                 box.style.background = color;
                 box.style.boxShadow = `0 0 6px ${color}88`;
 
-                // ✅ 添加退休标记 🎯
-                if (summary.retired && d.year === summary.retire_year) {
-                    box.textContent = '🎯';
-                    box.style.fontSize = '18px';
-                    box.style.textAlign = 'center';
-                    box.style.lineHeight = '32px';
+                if (summary.retired && d.year === summary.retire_year) box.textContent = '🎯';
+                if (d.warning) box.textContent = '⚠️';
+
+                let flowNote = '';
+
+                if (d.phase === '积累') {
+                    if (d.cash_flow === 0) {
+                        flowNote = '（📈靠收益）';
+                    } else {
+                        flowNote = '（💦储蓄）';
+                    }
+                } else { 
+                    if (d.cash_flow === 0) {
+                        flowNote = '（🌊储蓄完成）';
+                    } else if (d.cash_flow < 0) {
+                        flowNote = '（🐮上年牛市，多花😋）';
+                    } else {
+                        flowNote = '（🐻上年熊市，少花🥹）';
+                    }
+                }
+                const tipText = [
+                    `📅 YEAR  ${d.year}`,
+                    `📌 PHASE ${d.phase}`,
+                    `💰 ASSET ¥${d.assets.toLocaleString()}`,
+                    `📈 收益率 ${(d.return * 100).toFixed(2)}%`,
+                    `📤 现金流 ${d.cash_flow.toLocaleString()} ${flowNote}`,
+                    `📊 进度 ${(progress * 100).toFixed(1)}%`
+                ].join('\n');
+
+                box.addEventListener('mouseenter', () => {
+                    if (!isMobile) {
+                        tooltip.innerText = tipText;
+                        tooltip.style.display = 'block';
+                        const rect = box.getBoundingClientRect();
+                        const tooltipWidth = tooltip.offsetWidth || 320;
+                        const spaceRight = window.innerWidth - rect.right;
+                        if (spaceRight > tooltipWidth + 16) {
+                            tooltip.style.top = `${rect.top + window.scrollY}px`;
+                            tooltip.style.left = `${rect.right + 8}px`;
+                        } else {
+                            tooltip.style.top = `${rect.top + window.scrollY}px`;
+                            tooltip.style.left = `${rect.left - tooltipWidth - 8}px`;
+                        }
+                    }
+                });
+                box.addEventListener('mouseleave', () => {
+                    if (!isMobile) tooltip.style.display = 'none';
+                });
+
+                if (isMobile) {
+                    box.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        tooltip.innerText = tipText;
+                        tooltip.style.display = 'block';
+                        const rect = box.getBoundingClientRect();
+                        const tooltipWidth = tooltip.offsetWidth || 200;
+                        const spaceRight = window.innerWidth - rect.right;
+                        if (spaceRight > tooltipWidth + 16) {
+                            tooltip.style.top = `${rect.top + window.scrollY}px`;
+                            tooltip.style.left = `${rect.right + 8}px`;
+                        } else {
+                            tooltip.style.top = `${rect.top + window.scrollY}px`;
+                            tooltip.style.left = `${rect.left - tooltipWidth - 8}px`;
+                        }
+                    });
                 }
 
-                // ========= 资产⚠️警告 =========
-                if (d.warning) {
-                    box.textContent = '⚠️';
-                    box.style.fontSize = '18px';
-                    box.style.textAlign = 'center';
-                    box.style.lineHeight = '32px';
-                }
-                box.dataset.tip =
-                    `YEAR  ${d.year}\nPHASE ${d.phase}\nASSET ${d.assets.toLocaleString()}` +
-                    `\n收益率 ${(d.return * 100).toFixed(2)} % \n现金流 ${d.cash_flow} \nPROG  ${(progress * 100).toFixed(1)} `;
                 grid.appendChild(box);
             });
+
+            if (isMobile) {
+                document.body.addEventListener('click', () => {
+                    tooltip.style.display = 'none';
+                });
+            }
         })();
     </script>
 </body>
