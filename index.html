@@ -112,6 +112,32 @@
         footer a:hover {
             text-decoration: underline;
         }
+
+        /* ────────── Tooltip ────────── */
+        #global-tooltip {
+            display: none;
+            position: absolute;
+            z-index: 9999;
+            background: #141622;
+            color: #0ff;
+            font-size: 12px;
+            padding: 6px 8px;
+            border: 1px solid #4ff;
+            border-radius: 6px;
+            box-shadow: 0 0 8px #0ff;
+            white-space: pre-wrap;      /* 允许自动换行 */
+            word-break: break-word;     /* 长数字/英文可换行 */
+            min-width: 180px;
+            max-width: calc(100vw - 24px); /* 绝不超出屏幕两侧各 12px */
+            pointer-events: none;
+        }
+
+        @media (max-width: 700px) {
+            #global-tooltip {
+                font-size: 13px;
+                padding: 6px 8px;
+            }
+        }
     </style>
 </head>
 
@@ -120,17 +146,20 @@
         <h1>FIREGRID</h1>
         <p style="opacity:0.8; font-size:0.85rem;">Cyberpunk Retirement Withdrawal Grid</p>
     </header>
+
     <div id="summary" class="summary">Loading…</div>
     <div id="grid" class="grid"></div>
+
     <footer>
         <a href="https://github.com/realzsan3/firegrid" target="_blank">GitHub</a><br>© 2025 FIREGRID
     </footer>
-    <div id="global-tooltip" style="display:none; position:absolute; z-index:9999;
-background:#141622; color:#0ff; font-size:12px; padding:6px 8px;
-border:1px solid #4ff; border-radius:6px; box-shadow:0 0 8px #0ff;
-white-space:pre; pointer-events:none; min-width:180px; max-width:320px;"></div>
+
+    <!-- Tooltip -->
+    <div id="global-tooltip"></div>
+
     <script>
         (async () => {
+            /* ────────── 数据加载 ────────── */
             const res = await fetch('progress.json');
             if (!res.ok) {
                 document.getElementById('summary').textContent = '无法加载 progress.json';
@@ -138,6 +167,7 @@ white-space:pre; pointer-events:none; min-width:180px; max-width:320px;"></div>
             }
             const { summary, records } = await res.json();
 
+            /* ────────── 文案渲染 ────────── */
             const retired = summary.retired, safe = summary.safe;
             const safeTag = safe
                 ? (retired ? '✅ 退休资金安全' : '✅ 资产已达标')
@@ -174,13 +204,34 @@ white-space:pre; pointer-events:none; min-width:180px; max-width:320px;"></div>
     ${warningLine ? `<br>${warningLine}` : ''}
   `;
 
+            /* ────────── 网格 + Tooltip ────────── */
             const grid = document.getElementById('grid');
             const tooltip = document.getElementById('global-tooltip');
             const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
+            /* 兜底：确保 Tooltip 不越界 */
+            function clampTooltip() {
+                const rectTip = tooltip.getBoundingClientRect();
+
+                if (rectTip.right > window.innerWidth - 8) {
+                    tooltip.style.left = `${window.innerWidth - rectTip.width - 8}px`;
+                }
+                if (rectTip.bottom > window.innerHeight - 8) {
+                    tooltip.style.top = `${window.innerHeight - rectTip.height - 8}px`;
+                }
+                if (rectTip.left < 8) {
+                    tooltip.style.left = '8px';
+                }
+                if (rectTip.top < 8) {
+                    tooltip.style.top = '8px';
+                }
+            }
+
             records.forEach((d, idx) => {
                 const box = document.createElement('div');
                 box.className = 'cell';
+
+                /* 配色与渐变 */
                 const hue = 300 * idx / records.length;
                 const progress = d.progress ?? 0;
                 const light = 25 + 30 * progress;
@@ -191,15 +242,11 @@ white-space:pre; pointer-events:none; min-width:180px; max-width:320px;"></div>
                 if (summary.retired && d.year === summary.retire_year) box.textContent = '🎯';
                 if (d.warning) box.textContent = '⚠️';
 
+                /* 阶段提示 */
                 let flowNote = '';
-
                 if (d.phase === '积累') {
-                    if (d.cash_flow === 0) {
-                        flowNote = '（📈靠收益）';
-                    } else {
-                        flowNote = '（💦储蓄）';
-                    }
-                } else { 
+                    flowNote = d.cash_flow === 0 ? '（📈靠收益）' : '（💦储蓄）';
+                } else {
                     if (d.cash_flow === 0) {
                         flowNote = '（🌊储蓄完成）';
                     } else if (d.cash_flow < 0) {
@@ -208,6 +255,7 @@ white-space:pre; pointer-events:none; min-width:180px; max-width:320px;"></div>
                         flowNote = '（🐻上年熊市，少花🥹）';
                     }
                 }
+
                 const tipText = [
                     `📅 YEAR  ${d.year}`,
                     `📌 PHASE ${d.phase}`,
@@ -217,34 +265,44 @@ white-space:pre; pointer-events:none; min-width:180px; max-width:320px;"></div>
                     `📊 进度 ${(progress * 100).toFixed(1)}%`
                 ].join('\n');
 
+                /* ────────── 桌面端：hover ────────── */
                 box.addEventListener('mouseenter', () => {
-                    if (!isMobile) {
-                        tooltip.innerText = tipText;
-                        tooltip.style.display = 'block';
-                        const rect = box.getBoundingClientRect();
-                        const tooltipWidth = tooltip.offsetWidth || 320;
-                        const spaceRight = window.innerWidth - rect.right;
-                        if (spaceRight > tooltipWidth + 16) {
-                            tooltip.style.top = `${rect.top + window.scrollY}px`;
-                            tooltip.style.left = `${rect.right + 8}px`;
-                        } else {
-                            tooltip.style.top = `${rect.top + window.scrollY}px`;
-                            tooltip.style.left = `${rect.left - tooltipWidth - 8}px`;
-                        }
+                    if (isMobile) return;
+
+                    tooltip.innerText = tipText;
+                    tooltip.style.display = 'block';
+
+                    const rect = box.getBoundingClientRect();
+                    const tooltipWidth = tooltip.offsetWidth || 320;
+                    const spaceRight = window.innerWidth - rect.right;
+
+                    if (spaceRight > tooltipWidth + 16) {
+                        tooltip.style.top = `${rect.top + window.scrollY}px`;
+                        tooltip.style.left = `${rect.right + 8}px`;
+                    } else {
+                        tooltip.style.top = `${rect.top + window.scrollY}px`;
+                        tooltip.style.left = `${rect.left - tooltipWidth - 8}px`;
                     }
+
+                    clampTooltip();
                 });
+
                 box.addEventListener('mouseleave', () => {
                     if (!isMobile) tooltip.style.display = 'none';
                 });
 
+                /* ────────── 移动端：tap ────────── */
                 if (isMobile) {
                     box.addEventListener('click', (e) => {
                         e.stopPropagation();
+
                         tooltip.innerText = tipText;
                         tooltip.style.display = 'block';
+
                         const rect = box.getBoundingClientRect();
                         const tooltipWidth = tooltip.offsetWidth || 200;
                         const spaceRight = window.innerWidth - rect.right;
+
                         if (spaceRight > tooltipWidth + 16) {
                             tooltip.style.top = `${rect.top + window.scrollY}px`;
                             tooltip.style.left = `${rect.right + 8}px`;
@@ -252,12 +310,15 @@ white-space:pre; pointer-events:none; min-width:180px; max-width:320px;"></div>
                             tooltip.style.top = `${rect.top + window.scrollY}px`;
                             tooltip.style.left = `${rect.left - tooltipWidth - 8}px`;
                         }
+
+                        clampTooltip();
                     });
                 }
 
                 grid.appendChild(box);
             });
 
+            /* 点击空白处隐藏 Tooltip（移动端） */
             if (isMobile) {
                 document.body.addEventListener('click', () => {
                     tooltip.style.display = 'none';
