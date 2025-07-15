@@ -1,4 +1,5 @@
 # 🔥 FIREGRID · Cyberpunk Retirement Withdrawal Grid
+[简体中文](./README.zh.md)
 
 > 🚀 A cyberpunk-style visual simulator for FIRE (Financial Independence, Retire Early)
 > One square = One year. Illuminate your path to financial freedom.
