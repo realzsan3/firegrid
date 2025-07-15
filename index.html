@@ -1,11 +1,10 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>FIREGRID - 退休提款 Cyber 进度格</title>
+    <title>FIREGRID - Cyber Retirement Grid</title>
     <style>
         :root {
             --bg: #0d0f1a;
@@ -13,7 +12,7 @@
         }
 
         html {
-            -webkit-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%
         }
 
         body {
@@ -31,10 +30,11 @@
         header {
             text-align: center;
             margin: 2rem 0 1rem;
+            position: relative;
         }
 
         h1 {
-            margin: 0.3rem 0 1rem;
+            margin: .3rem 0 1rem;
             font-size: 1.8rem;
             letter-spacing: 2px;
             text-shadow: 0 0 8px var(--fg);
@@ -44,7 +44,7 @@
             max-width: 600px;
             width: 90vw;
             padding: 0 1rem;
-            font-size: 0.9rem;
+            font-size: .9rem;
             line-height: 1.6;
             text-align: center;
             word-break: break-word;
@@ -59,16 +59,16 @@
             width: fit-content;
         }
 
-        @media (max-width: 700px) {
+        @media(max-width:700px) {
             .grid {
-                grid-template-columns: repeat(auto-fill, minmax(calc((100vw - 32px) / 10), 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(calc((100vw - 32px)/10), 1fr));
                 width: 90vw;
                 margin: 1.5rem auto;
             }
 
             .cell {
                 width: 100%;
-                aspect-ratio: 1 / 1;
+                aspect-ratio: 1/1;
             }
         }
 
@@ -76,30 +76,42 @@
             width: 32px;
             height: 32px;
             border-radius: 4px;
-            border: 1px solid rgba(64, 238, 255, 0.15);
-            box-shadow: 0 0 6px rgba(0, 255, 255, 0.12);
+            border: 1px solid rgba(64, 238, 255, .15);
+            box-shadow: 0 0 6px rgba(0, 255, 255, .12);
             opacity: 0;
-            transform: scale(0.6);
-            animation: pop 0.4s forwards;
+            transform: scale(.6);
+            animation: pop .4s forwards;
             cursor: pointer;
-            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 1;
             font-size: 18px;
+            position: relative;
+        }
+
+        .cell.warning-level-1 {
+            border-color: #ffae00;
+            box-shadow: 0 0 10px #ffae00;
+        }
+
+        .cell.warning-level-2 {
+            border-color: #ff0000;
+            box-shadow: 0 0 12px #ff0000;
+            font-weight: bold;
+            color: #ff0000;
         }
 
         @keyframes pop {
             to {
                 opacity: 1;
-                transform: scale(1);
+                transform: scale(1)
             }
         }
 
         footer {
             padding: 1rem;
-            font-size: 0.9rem;
+            font-size: .9rem;
             color: #7aa;
             text-align: center;
         }
@@ -113,7 +125,6 @@
             text-decoration: underline;
         }
 
-        /* ────────── Tooltip ────────── */
         #global-tooltip {
             display: none;
             position: absolute;
@@ -125,17 +136,17 @@
             border: 1px solid #4ff;
             border-radius: 6px;
             box-shadow: 0 0 8px #0ff;
-            white-space: pre-wrap;      /* 允许自动换行 */
-            word-break: break-word;     /* 长数字/英文可换行 */
+            white-space: pre-wrap;
+            word-break: break-word;
             min-width: 180px;
-            max-width: calc(100vw - 24px); /* 绝不超出屏幕两侧各 12px */
+            max-width: calc(100vw - 24px);
             pointer-events: none;
         }
 
-        @media (max-width: 700px) {
+        @media(max-width:700px) {
             #global-tooltip {
                 font-size: 13px;
-                padding: 6px 8px;
+                padding: 6px 8px
             }
         }
     </style>
@@ -144,7 +155,7 @@
 <body>
     <header>
         <h1>FIREGRID</h1>
-        <p style="opacity:0.8; font-size:0.85rem;">Cyberpunk Retirement Withdrawal Grid</p>
+        <p id="subheading" style="opacity:.8;font-size:.85rem;">Cyberpunk Retirement Withdrawal Grid</p>
     </header>
 
     <div id="summary" class="summary">Loading…</div>
@@ -154,175 +165,189 @@
         <a href="https://github.com/realzsan3/firegrid" target="_blank">GitHub</a><br>© 2025 FIREGRID
     </footer>
 
-    <!-- Tooltip -->
     <div id="global-tooltip"></div>
 
     <script>
+        let userLang = localStorage.getItem('firegridLang') || (navigator.language.startsWith('zh') ? 'zh-CN' : 'en');
+        // let userLang = 'en';
+        document.documentElement.lang = userLang;
+
+        const langs = {
+            'zh-CN': {
+                loading: '加载中…', subtitle: '赛博朋克退休提款进度图', error: '无法加载 progress.json',
+                retiredSafe: '✅ 退休资金安全', targetSafe: '✅ 资产已达标',
+                retiredNotSafe: '⚠️ 退休资金不足', targetNotSafe: '⚠️ 资产尚未达标',
+                retiredAt: y => `于 <b>${y}</b> 年退休`, accumulating: '仍在积累阶段',
+                warnings: y => `⚠️ 警告年份：${y}`,
+                goalInvalid: '🎯 目标资产数据不可用',
+                goalFull: (a, r, t) => `🎯 目标资产 = 年支出 ${a} × 提款率 ${(r * 100).toFixed(2)}% = ${t}`,
+                summary: (s, acc, ret, sim, fin, sv, wd, net, warn) => `
+          🧮 从 <b>${s}</b> 年起，累计 <b>${acc}</b> 年，${ret}<br>
+          📆 模拟 <b>${sim}</b> 年，最终剩余资产 <b>${fin}</b><br><br>
+          💵 储蓄 ${sv} &nbsp;&nbsp; 📤 提取 ${wd} &nbsp;&nbsp; 📈 净收益 ${net}<br><br>
+          ${warn ? `📊 ${warn}` : ''}
+        `,
+                year: '📅 年份', phase: '📌 阶段', asset: '💰 资产', return: '📈 收益率',
+                cash: '📤 现金流', progress: '📊 进度',
+                flowNotes: {
+                    saving: '（💦储蓄）', earning: '（📈靠收益）', retireDone: '（🌊储蓄完成）',
+                    bull: '（🐮上年牛市，多花😋）', bear: '（🐻上年熊市，少花🥹）'
+                },
+                warningMsgs: {
+                    1: "⚠️ 轻度警告：资产低于 80%，建议削减支出",
+                    2: "🚨 严重警告：资产低于 60%，暂停提款并注资"
+                }
+            },
+            'en': {
+                loading: 'Loading…', subtitle: 'Cyberpunk Retirement Withdrawal Grid', error: 'Unable to load progress.json',
+                retiredSafe: '✅ Safe retirement funding', targetSafe: '✅ Assets reached target',
+                retiredNotSafe: '⚠️ Insufficient retirement funds', targetNotSafe: '⚠️ Assets below target',
+                retiredAt: y => `Retired in <b>${y}</b>`, accumulating: 'Still in accumulation phase',
+                warnings: y => `⚠️ Warning years: ${y}`,
+                goalInvalid: '🎯 Target asset info not available',
+                goalFull: (a, r, t) => `🎯 Target = Annual Spending ${a} × Withdrawal Rate ${(r * 100).toFixed(2)}% = ${t}`,
+                summary: (s, acc, ret, sim, fin, sv, wd, net, warn) => `
+          🧮 From <b>${s}</b>, accumulated <b>${acc}</b> years, ${ret}<br>
+          📆 Simulated <b>${sim}</b> years, final assets <b>${fin}</b><br><br>
+          💵 Saved ${sv} &nbsp;&nbsp; 📤 Withdrawn ${wd} &nbsp;&nbsp; 📈 Net Gain ${net}<br><br>
+          ${warn ? `📊 ${warn}` : ''}
+        `,
+                year: '📅 YEAR', phase: '📌 PHASE', asset: '💰 ASSET', return: '📈 RETURN',
+                cash: '📤 CASH FLOW', progress: '📊 PROGRESS',
+                flowNotes: {
+                    saving: '(💦Saving)', earning: '(📈Earnings)', retireDone: '(🌊No withdrawal)',
+                    bull: '(🐮Bull market, spent more 😋)', bear: '(🐻Bear market, spent less 🥹)'
+                },
+                warningMsgs: {
+                    1: "⚠️ Mild Warning: Assets below 80%, consider cutting spending",
+                    2: "🚨 Serious Warning: Assets below 60%, pause withdrawals and add funds"
+                }
+            }
+        };
+
+        const L = langs[userLang];
+        const t = k => L[k];
+        document.getElementById('subheading').innerText = t('subtitle');
+        document.getElementById('summary').textContent = t('loading');
+
+        const phaseMap = userLang === 'zh-CN'
+            ? { 'Saving': '储蓄', 'Retirement': '已退休' }
+            : {};
+
         (async () => {
-            /* ────────── 数据加载 ────────── */
             const res = await fetch('progress.json');
             if (!res.ok) {
-                document.getElementById('summary').textContent = '无法加载 progress.json';
+                document.getElementById('summary').textContent = t('error');
                 return;
             }
             const { summary, records } = await res.json();
-
-            /* ────────── 文案渲染 ────────── */
             const retired = summary.retired, safe = summary.safe;
             const safeTag = safe
-                ? (retired ? '✅ 退休资金安全' : '✅ 资产已达标')
-                : (retired ? '⚠️ 退休资金不足' : '⚠️ 资产尚未达标');
-            const retireInfo = retired
-                ? `于 <b>${summary.retire_year}</b> 年退休`
-                : '仍在积累阶段';
-            const warningLine = (summary.warning_years?.length)
-                ? `⚠️ 警告年份：${summary.warning_years.join(', ')}`
-                : '';
+                ? (retired ? L.retiredSafe : L.targetSafe)
+                : (retired ? L.retiredNotSafe : L.targetNotSafe);
+            const retireInfo = retired ? L.retiredAt(summary.retire_year) : L.accumulating;
+            const warningLine = summary.warning_years?.length ? L.warnings(summary.warning_years.join(', ')) : '';
 
-            let targetStr = '🎯 目标资产数据不可用';
+            let goalStr = L.goalInvalid;
             try {
-                if (typeof summary.target_description === 'object' && summary.target_description !== null) {
-                    const td = summary.target_description;
-                    targetStr = `🎯 目标资产 = 年支出 ${td.annual_spending.toLocaleString()} × 提款率 ${(td.withdraw_rate * 100).toFixed(2)}% = ${td.target_assets.toLocaleString()}`;
-                } else if (typeof summary.target_description === 'string') {
-                    targetStr = summary.target_description;
-                }
-            } catch {
-                targetStr = summary.target_description;
-            }
+                const td = summary.target_description;
+                if (typeof td === 'object' && td) {
+                    goalStr = L.goalFull(td.annual_spending.toLocaleString(), td.withdraw_rate, td.target_assets.toLocaleString());
+                } else if (typeof td === 'string') { goalStr = td; }
+            } catch { goalStr = summary.target_description; }
 
-            document.getElementById('summary').innerHTML = `
-    <div style="color:#39ff14;font-weight:bold;margin-bottom:10px;">${targetStr}</div>
-    🧮 从 <b>${summary.start_year}</b> 年起，累计 <b>${summary.accumulation_years}</b> 年，${retireInfo}<br>
-    📆 模拟 <b>${records.length}</b> 年，最终剩余资产 <b>${summary.final_assets.toLocaleString()}</b><br><br>
+            document.getElementById('summary').innerHTML =
+                `<div style="color:#39ff14;font-weight:bold;margin-bottom:10px;">${goalStr}<br>${safeTag}</div>` +
+                L.summary(
+                    summary.start_year, summary.accumulation_years, retireInfo, records.length,
+                    summary.final_assets.toLocaleString(),
+                    (summary.total_saved || 0).toLocaleString(),
+                    (summary.total_withdrawn || 0).toLocaleString(),
+                    (summary.net_gain || 0).toLocaleString(),
+                    warningLine
+                );
 
-    💵 储蓄 ${(summary.total_saved || 0).toLocaleString()} &nbsp;&nbsp;
-    📤 提取 ${(summary.total_withdrawn || 0).toLocaleString()} &nbsp;&nbsp;
-    📈 净收益 ${(summary.net_gain || 0).toLocaleString()}<br><br>
-
-    📊 当前状态：<b>${safeTag}</b>
-    ${warningLine ? `<br>${warningLine}` : ''}
-  `;
-
-            /* ────────── 网格 + Tooltip ────────── */
             const grid = document.getElementById('grid');
             const tooltip = document.getElementById('global-tooltip');
             const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-
-            /* 兜底：确保 Tooltip 不越界 */
             function clampTooltip() {
-                const rectTip = tooltip.getBoundingClientRect();
-
-                if (rectTip.right > window.innerWidth - 8) {
-                    tooltip.style.left = `${window.innerWidth - rectTip.width - 8}px`;
-                }
-                if (rectTip.bottom > window.innerHeight - 8) {
-                    tooltip.style.top = `${window.innerHeight - rectTip.height - 8}px`;
-                }
-                if (rectTip.left < 8) {
-                    tooltip.style.left = '8px';
-                }
-                if (rectTip.top < 8) {
-                    tooltip.style.top = '8px';
-                }
+                const r = tooltip.getBoundingClientRect();
+                if (r.right > innerWidth - 8) tooltip.style.left = `${innerWidth - r.width - 8}px`;
+                if (r.bottom > innerHeight - 8) tooltip.style.top = `${innerHeight - r.height - 8}px`;
+                if (r.left < 8) tooltip.style.left = '8px';
+                if (r.top < 8) tooltip.style.top = '8px';
             }
 
             records.forEach((d, idx) => {
                 const box = document.createElement('div');
                 box.className = 'cell';
 
-                /* 配色与渐变 */
+                // 根据 warning_level 添加样式
+                if (d.warning_level === 1) box.classList.add('warning-level-1');
+                else if (d.warning_level === 2) box.classList.add('warning-level-2');
+
                 const hue = 300 * idx / records.length;
-                const progress = d.progress ?? 0;
-                const light = 25 + 30 * progress;
+                const prog = d.progress ?? 0;
+                const light = 25 + 30 * prog;
                 const color = `hsl(${hue} 100% ${light}%)`;
                 box.style.background = color;
                 box.style.boxShadow = `0 0 6px ${color}88`;
 
                 if (summary.retired && d.year === summary.retire_year) box.textContent = '🎯';
-                if (d.warning) box.textContent = '⚠️';
+                else if (d.warning_level === 1) box.textContent = '⚠️';
+                else if (d.warning_level === 2) box.textContent = '🚨';
 
-                /* 阶段提示 */
                 let flowNote = '';
-                if (d.phase === '积累') {
-                    flowNote = d.cash_flow === 0 ? '（📈靠收益）' : '（💦储蓄）';
+                const phaseLabel = phaseMap[d.phase] || d.phase;
+                if (d.phase === 'Saving') {
+                    flowNote = d.cash_flow === 0 ? L.flowNotes.earning : L.flowNotes.saving;
                 } else {
-                    if (d.cash_flow === 0) {
-                        flowNote = '（🌊储蓄完成）';
-                    } else if (d.cash_flow < 0) {
-                        flowNote = '（🐮上年牛市，多花😋）';
-                    } else {
-                        flowNote = '（🐻上年熊市，少花🥹）';
-                    }
+                    if (d.cash_flow === 0) flowNote = L.flowNotes.retireDone;
+                    else if (d.cash_flow < 0) flowNote = L.flowNotes.bull;
+                    else flowNote = L.flowNotes.bear;
                 }
 
+                // 拼接警告信息，单语显示，基于当前语言 userLang
+                const warningMsg = (d.warning_level && L.warningMsgs[d.warning_level])
+                    ? `⚠️ ${L.warningMsgs[d.warning_level]}`
+                    : '';
+
                 const tipText = [
-                    `📅 YEAR  ${d.year}`,
-                    `📌 PHASE ${d.phase}`,
-                    `💰 ASSET ¥${d.assets.toLocaleString()}`,
-                    `📈 收益率 ${(d.return * 100).toFixed(2)}%`,
-                    `📤 现金流 ${d.cash_flow.toLocaleString()} ${flowNote}`,
-                    `📊 进度 ${(progress * 100).toFixed(1)}%`
+                    `${L.year}  ${d.year}`,
+                    `${L.phase} ${phaseLabel}`,
+                    `${L.asset} ${d.assets.toLocaleString()}`,
+                    `${L.return} ${(d.return * 100).toFixed(2)}%`,
+                    `${L.cash} ${d.cash_flow.toLocaleString()} ${flowNote}`,
+                    `${L.progress} ${(prog * 100).toFixed(1)}%`,
+                    warningMsg
                 ].join('\n');
 
-                /* ────────── 桌面端：hover ────────── */
                 box.addEventListener('mouseenter', () => {
                     if (isMobile) return;
-
                     tooltip.innerText = tipText;
                     tooltip.style.display = 'block';
-
-                    const rect = box.getBoundingClientRect();
-                    const tooltipWidth = tooltip.offsetWidth || 320;
-                    const spaceRight = window.innerWidth - rect.right;
-
-                    if (spaceRight > tooltipWidth + 16) {
-                        tooltip.style.top = `${rect.top + window.scrollY}px`;
-                        tooltip.style.left = `${rect.right + 8}px`;
-                    } else {
-                        tooltip.style.top = `${rect.top + window.scrollY}px`;
-                        tooltip.style.left = `${rect.left - tooltipWidth - 8}px`;
-                    }
-
+                    const r = box.getBoundingClientRect();
+                    tooltip.style.top = `${r.top + scrollY}px`;
+                    tooltip.style.left = `${r.right + 8}px`;
                     clampTooltip();
                 });
-
-                box.addEventListener('mouseleave', () => {
-                    if (!isMobile) tooltip.style.display = 'none';
-                });
-
-                /* ────────── 移动端：tap ────────── */
+                box.addEventListener('mouseleave', () => { if (!isMobile) tooltip.style.display = 'none'; });
                 if (isMobile) {
-                    box.addEventListener('click', (e) => {
+                    box.addEventListener('click', e => {
                         e.stopPropagation();
-
                         tooltip.innerText = tipText;
                         tooltip.style.display = 'block';
-
-                        const rect = box.getBoundingClientRect();
-                        const tooltipWidth = tooltip.offsetWidth || 200;
-                        const spaceRight = window.innerWidth - rect.right;
-
-                        if (spaceRight > tooltipWidth + 16) {
-                            tooltip.style.top = `${rect.top + window.scrollY}px`;
-                            tooltip.style.left = `${rect.right + 8}px`;
-                        } else {
-                            tooltip.style.top = `${rect.top + window.scrollY}px`;
-                            tooltip.style.left = `${rect.left - tooltipWidth - 8}px`;
-                        }
-
+                        const r = box.getBoundingClientRect();
+                        tooltip.style.top = `${r.top + scrollY}px`;
+                        tooltip.style.left = `${r.right + 8}px`;
                         clampTooltip();
                     });
                 }
-
                 grid.appendChild(box);
             });
 
-            /* 点击空白处隐藏 Tooltip（移动端） */
             if (isMobile) {
-                document.body.addEventListener('click', () => {
-                    tooltip.style.display = 'none';
-                });
+                document.body.addEventListener('click', () => { tooltip.style.display = 'none'; });
             }
         })();
     </script>

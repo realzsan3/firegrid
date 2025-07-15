@@ -1,108 +1,119 @@
-# 🔥 FIREGRID · 财务自由提款格子图
+# 🔥 FIREGRID · Cyberpunk Retirement Withdrawal Grid
 
-> 🚀 赛博朋克风财务自由退休提款可视化模拟器
-> 一格代表一年，点亮你的财务自由之路
+> 🚀 A cyberpunk-style visual simulator for FIRE (Financial Independence, Retire Early)
+> One square = One year. Illuminate your path to financial freedom.
 
-FIREGRID 结合渐变色格子图直观展示每年资产、提款进度和收益波动，帮助你理性规划退休提款策略，提前掌控财务自由节奏。
-
----
-
-## 🎯 核心特性
-
-* 📅 **年度格子视图**：人生百年财务一览无余
-* 📉 **动态提款**：根据上一年实际收益智能调整提款额
-* 🟪 **炫酷赛博朋克视觉**：蓝紫渐变格子，极具科技感
-* ⚠️ **风险预警**：资产跌破安全阈值自动提示
-* 🔧 **高度自定义**：灵活配置收益率模型、起始资产、年支出目标等
-* 🌐 **纯前端展示**：静态页面 + JSON，支持 GitHub Pages 轻松部署
+**FIREGRID** uses a colorful grid chart to visualize your yearly asset growth, withdrawal flow, and risk signals — helping you build a sustainable withdrawal plan across your entire financial life cycle.
 
 ---
 
-## 🛠 功能概览
+## 🎯 Key Highlights
 
-| 功能        | 说明                                          | 相关参数                                      |
-| --------- | ------------------------------------------- | ----------------------------------------- |
-| 积累期与退休期模拟 | 自动按年切换阶段，模拟储蓄与提款流程                          | `--saving`、`--rate`、`--k`、`--post_income` |
-| 动态提款计算    | 基于上一年收益率调整退休提款，避免熊市多卖牛市少花                   | `--init_return`                           |
-| 收益率输入模式   | 支持固定收益、随机正态分布或CSV导入收益率序列                    | `--growth`、`--mu`/`--sigma`、`--csv`       |
-| 安全阈值风险预警  | 退休期资产低于目标50%并且进度极低时自动提示风险                   | 代码内固定，可自行调整                               |
-| 详细年报输出    | 命令行逐年打印资产、收益、提款及进度                          | —                                         |
-| JSON数据导出  | 输出包含年报明细和汇总的 `progress.json`，前端直接读取         | `--json_out`                              |
-| CLI交互模式   | 缺少参数时自动进入交互式输入                              | —                                         |
-| 参数冲突检查    | 自动禁止无效参数组合，例如 `--csv` 与 `--mu/--sigma` 不能共用 | —                                         |
-| 可自定义起始年份  | 方便和前端页面时间轴对齐                                | `--start_year`                            |
+* 📆 **Annual Grid View**: See your entire financial journey in one glance
+* 📈 **Dynamic Withdrawal Strategy**: Adjust withdrawal based on actual market returns
+* 💡 **Dual-Phase Simulation**: Accumulation → Retirement modeled seamlessly
+* ⚠️ **Multi-Level Risk Alerts**: Auto-detect when assets fall below critical thresholds
+* 🎨 **Cyberpunk Aesthetic**: Neon gradients + glowing grid for futuristic vibes
+* ⚙️ **Fully Customizable**: Configure savings, income, asset returns, thresholds, and more
+* 🌐 **Pure Frontend Deployment**: Works with static HTML + JSON, deployable via GitHub Pages
 
 ---
 
-## 典型使用场景
-| 场景            | 应用价值                               |
-| ------------- | ---------------------------------- |
-| 真正退休后长期取现     | 稳定可持续地支撑养老开支，动态规避市场极端波动风险          |
-| 短期“Gap” 年或优惠期 | 临时无收入期间，保证资金不被过度抽取，同时享受市场回暖带来的“红利” |
-| 财务自由目标规划      | 反向测算“需存储多少资产”才能在 N 年内每年取出目标生活费     |
-| 投资组合验证／压力测试   | 与任何投资组合结合，用于测试在不同市场情景下的取款安全边界      |
+## 🛠 Feature Overview
 
-
----
-
-## 🌐 在线演示
-
-🔗 [FIREGRID · 财务自由提款格子图](https://firegrid.111533.xyz/)
-
-（建议使用 GitHub Pages 或 Cloudflare Pages 部署，实现零成本托管）
+| Feature                   | Description                                                   | Parameters                                          |
+| ------------------------- | ------------------------------------------------------------- | --------------------------------------------------- |
+| ✅ Full Lifecycle Model    | Simulates accumulation and retirement phases                  | `--saving`, `--rate`, `--k`, `--post_income`        |
+| ✅ Dynamic Withdrawals     | Withdraw amount adjusts based on previous year's return       | `--init_return`                                     |
+| ✅ Flexible Return Modes   | Use fixed rate, normal distribution, or import from CSV       | `--growth`, `--mu`/`--sigma`, `--csv`               |
+| ✅ Risk Guardrails         | Alerts when asset level falls below 80% or 60% of FIRE target | Built-in logic (customizable via `--retire_saving`) |
+| ✅ Yearly Reports + JSON   | Outputs detailed yearly report and summary as `progress.json` | `--json_out`                                        |
+| ✅ Interactive CLI         | Missing parameters? Enters interactive mode automatically     | —                                                   |
+| ✅ Argument Conflict Check | Prevents invalid combinations (e.g., `--csv` with `--mu`)     | —                                                   |
+| ✅ Custom Start Year       | Aligns simulation with real-world calendar                    | `--start_year`                                      |
 
 ---
 
-## 🚀 快速开始
+## 🌐 Live Demo
+
+🔗 [firegrid.111533.xyz](https://firegrid.111533.xyz)
+
+> Static frontend with fully local JSON data — ideal for free deployment on GitHub Pages or Cloudflare Pages.
+
+---
+
+## 🚀 Quick Start
 
 ```bash
 git clone https://github.com/realzsan3/firegrid
 cd firegrid
-python financial_life_cycle.py  # 运行模拟，生成 progress.json
-python -m http.server 8000      # 启动本地服务，访问 http://localhost:8000
+
+# Run simulation and generate progress.json
+python financial_life_cycle.py
+
+# Launch local server (open http://localhost:8000)
+python -m http.server 8000
 ```
 
 ---
 
-## 📖 说明
+## 🔍 Use Cases
 
-* 资产模拟基于真实收益率序列或自定义参数生成
-* 退休提款动态调整，更贴合市场波动
-* 前端纯静态，轻量且易于二次开发
-* 欢迎贡献和反馈，助力财务自由社区！
-
-## 💡灵感来源
-来自财经大佬E大的微博关于 设计一个退休提款模型的💡
-
-借助ChatGPT 优化相关算法实现，模型刚开始面向的是有存款退休人群，后来发现可以加入积累阶段，对于存款不多的人群也可以看模拟什么时候退休
-
-source：
- > https://weibo.com/7519797263/PACdkCFJD  
- https://weibo.com/7519797263/PAJ8UmLb4
----
-对于哪里挣钱哪里花，一份别想带回家的人
-
-ChatGPT这样说：
-
-🚧 不是放弃，而是阶段性的策略转变
-
-| 优先级 | 当前重点          |
-| --- | ------------- |
-| ✅   | 提升技能、增加收入来源   |
-| ✅   | 控制关键支出（租房、负债） |
-| ✅   | 记录财务、保持清醒意识   |
-
-只要你对“自由”有念头，你就已经比很多人多了一点可能性。
-
-💬 最后送你一句话：
-“不是你现在没钱不能自由，而是你还没为自由创造‘通往可能的路径’。”
+| Scenario                | Description                                                                  |
+| ----------------------- | ---------------------------------------------------------------------------- |
+| ✅ Post-retirement plan  | Model sustainable long-term withdrawals while avoiding sequence risk         |
+| ✅ Temporary "Gap Year"  | Simulate survival without income for a few years during sabbatical/life gaps |
+| ✅ FIRE Target Planning  | Reverse-calculate how much you need to retire with your desired lifestyle    |
+| ✅ Portfolio Stress Test | Run FIREGRID with actual or simulated returns to test withdrawal viability   |
 
 ---
 
-## 局限
-当前脚本是一个入门级的“年化模拟”，更多适合帮助理解积累→提款的逻辑流。要在严谨的财务规划或产品开发中使用，需要引入「历史回测＋蒙特卡洛＋多资产＋通胀费率＋动态护栏」等模块，并对关键参数进行校准和压力测试。这样，模型才能更好地反映现实、降低 disastrously over‑optimistic 或过度保守的风险。
+## 🧠 Simulation Logic
 
-# Star History
+FIREGRID simulates your financial journey based on:
+
+* 💼 Accumulating savings during working years
+* 🎯 Switching to retirement phase once FIRE asset goal is reached
+* 📉 Dynamic withdrawals based on last year's return (with adjustable sensitivity `k`)
+* 🛑 Risk guardrails:
+
+  * < 80% → recommend cutback
+  * < 60% → pause withdrawals + optional cash injection
+* 🧾 Generates a full yearly log and summary exportable as JSON
+
+---
+
+## ⚠️ Limitations
+
+This is a simplified, annualized model suitable for **education, content creation, and light planning**.
+
+To use in production-grade tools or serious financial planning, consider adding:
+
+* 🎲 Monte Carlo simulation + historical backtesting
+* 📉 Multi-asset portfolio + inflation modeling
+* 🛡️ Dynamic guardrails & scenario planning
+* 🧪 Stress-tested parameters based on real-world data
+
+---
+
+## 💬 Inspiration
+
+Inspired by Chinese finance influencer **E大** on Weibo, and enhanced via ChatGPT-assisted modeling.
+Original discussions:
+📎 [Weibo post 1](https://weibo.com/7519797263/PACdkCFJD)｜[Weibo post 2](https://weibo.com/7519797263/PAJ8UmLb4)
+
+---
+
+## ❤️ For Dreamers of Freedom
+
+> “It’s not that you can’t be free because you’re broke —
+> It’s that you haven’t yet built your **path to possibility**.”
+
+If you’ve ever dreamed of **living on your terms**, FIREGRID is your sandbox.
+
+---
+
+## 📈 Star History
 
 <a href="https://www.star-history.com/#realzsan3/firegrid&Date">
  <picture>
@@ -111,3 +122,4 @@ ChatGPT这样说：
    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=realzsan3/firegrid&type=Date" />
  </picture>
 </a>
+
