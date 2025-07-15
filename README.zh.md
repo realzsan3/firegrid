@@ -20,7 +20,7 @@
 
 ## 💻 示例截图
 
-> ![示意图](https://firegrid.111533.xyz/assets/og-image.jpg)
+> ![示意图](./assets/og-image.jpg)
 > 🔎 动态格子图、中文/英文本地化、多级警告提示，鼠标悬停可查看详细信息
 
 📍 [预览](https://firegrid.111533.xyz/)

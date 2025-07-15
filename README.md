@@ -22,7 +22,7 @@
 
 ## 🌐 Live Demo
 
-> ![示意图](https://firegrid.111533.xyz/assets/og-image.jpg)
+> ![示意图](./assets/og-image.jpg)
 
 🔗 [live Demo](https://firegrid.111533.xyz)
 
