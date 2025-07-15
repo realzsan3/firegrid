@@ -19,6 +19,16 @@
 
 ---
 
+## 🌐 Live Demo
+
+> ![示意图](https://firegrid.111533.xyz/assets/og-image.jpg)
+
+🔗 [live Demo](https://firegrid.111533.xyz)
+
+> Static frontend with fully local JSON data — ideal for free deployment on GitHub Pages or Cloudflare Pages.
+
+---
+
 ## 🛠 Feature Overview
 
 | Feature                   | Description                                                   | Parameters                                          |
@@ -31,15 +41,6 @@
 | ✅ Interactive CLI         | Missing parameters? Enters interactive mode automatically     | —                                                   |
 | ✅ Argument Conflict Check | Prevents invalid combinations (e.g., `--csv` with `--mu`)     | —                                                   |
 | ✅ Custom Start Year       | Aligns simulation with real-world calendar                    | `--start_year`                                      |
-
----
-
-## 🌐 Live Demo
-
-🔗 [firegrid.111533.xyz](https://firegrid.111533.xyz)
-
-> Static frontend with fully local JSON data — ideal for free deployment on GitHub Pages or Cloudflare Pages.
-
 ---
 
 ## 🚀 Quick Start
